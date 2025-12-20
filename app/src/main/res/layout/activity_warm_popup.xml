@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white">
+
+    <!-- 控制面板 -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/control_panel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        app:cardBackgroundColor="@android:color/white"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:id="@+id/tv_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="当前弹窗数量: 0 / 300"
+                android:textColor="#333"
+                android:textSize="14sp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="8dp">
+
+                <Button
+                    android:id="@+id/btn_start"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="#4CAF50"
+                    android:text="开始弹窗"
+                    android:textColor="@android:color/white"
+                    android:textSize="12sp"
+                    android:minHeight="40dp"/>
+
+                <Button
+                    android:id="@+id/btn_stop"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:backgroundTint="#F44336"
+                    android:text="停止弹窗"
+                    android:textColor="@android:color/white"
+                    android:textSize="12sp"
+                    android:minHeight="40dp"/>
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_close_all"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:backgroundTint="#4CAF50"
+                android:text="关闭所有"
+                android:textColor="@android:color/white"
+                android:textSize="12sp"
+                android:minHeight="40dp"/>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <!-- 切换按钮 -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btn_toggle_panel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:src="@drawable/ic_dashboard"
+        app:backgroundTint="#2196F3"
+        app:tint="@android:color/white"
+        app:fabSize="mini"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- 弹窗容器，用于放置动态生成的弹窗 -->
+    <FrameLayout
+        android:id="@+id/popup_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

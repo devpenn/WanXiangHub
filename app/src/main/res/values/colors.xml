@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="warm_bg">#FFF3E0</color> <!-- Cream/Light Orange -->
+    <color name="warm_primary">#FF7043</color> <!-- Deep Orange -->
+    <color name="warm_accent">#FFAB91</color> <!-- Light Orange -->
+    <color name="text_color">#5D4037</color> <!-- Brown -->
+</resources>
