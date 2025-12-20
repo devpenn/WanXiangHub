@@ -42,7 +42,7 @@ class ToolsFragment : Fragment() {
         )
 
         // 设置 RecyclerView
-        rvTools.layoutManager = GridLayoutManager(context, 2) // 2列网格
+        rvTools.layoutManager = GridLayoutManager(context, 4) // 4列网格
         rvTools.adapter = ToolsAdapter(requireContext(), toolsList)
         
         return root

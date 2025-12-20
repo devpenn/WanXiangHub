@@ -3,9 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp"
-    app:cardCornerRadius="12dp"
-    app:cardElevation="4dp"
+    android:layout_margin="4dp"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="2dp"
     app:cardPreventCornerOverlap="true">
 
     <LinearLayout
@@ -13,13 +13,13 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:padding="8dp">
 
         <ImageView
             android:id="@+id/iv_tool_icon"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_marginBottom="8dp"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginBottom="4dp"
             android:contentDescription="Tool Icon"
             android:src="@drawable/ic_dashboard"
             app:tint="?attr/colorPrimary" />
@@ -30,8 +30,11 @@
             android:layout_height="wrap_content"
             android:text="工具名称"
             android:textColor="#333333"
-            android:textSize="14sp"
-            android:textStyle="bold" />
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:maxLines="2"
+            android:ellipsize="end"/>
 
     </LinearLayout>
 
