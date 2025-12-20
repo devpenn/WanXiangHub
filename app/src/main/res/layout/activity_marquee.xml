@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000000"
+    android:keepScreenOn="true"
+    tools:context=".MarqueeActivity">
+
+    <!-- 滚动文字视图 -->
+    <TextView
+        android:id="@+id/tv_marquee"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:text="请输入文字"
+        android:textColor="#FF0000"
+        android:textSize="200sp"
+        android:textStyle="bold"
+        android:singleLine="true"/>
+
+    <!-- 设置面板 (点击屏幕显示/隐藏) -->
+    <LinearLayout
+        android:id="@+id/layout_settings"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="#CC000000"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:visibility="visible">
+
+        <EditText
+            android:id="@+id/et_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="输入想要滚动的文字"
+            android:textColor="#FFFFFF"
+            android:textColorHint="#AAAAAA" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp">
+            
+            <Button
+                android:id="@+id/btn_update"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="更新文字" />
+                
+            <Button
+                android:id="@+id/btn_toggle_scroll"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="暂停/继续" />
+                
+            <Button
+                android:id="@+id/btn_rotate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="旋转屏幕" />
+        </LinearLayout>
+    </LinearLayout>
+
+</FrameLayout>

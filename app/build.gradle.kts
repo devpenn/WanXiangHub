@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace = "com.penn.myapplication"
-    compileSdk = 34 // Manually set to a stable version as release(36) might be unstable or placeholder
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.penn.myapplication"
@@ -43,6 +43,10 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
     implementation("androidx.navigation:navigation-fragment-ktx:2.7.7")
     implementation("androidx.navigation:navigation-ui-ktx:2.7.7")
+    
+    // QR Code generation
+    implementation("com.google.zxing:core:3.5.2")
+    
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

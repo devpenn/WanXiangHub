@@ -24,6 +24,11 @@
         <activity 
             android:name=".WarmPopupActivity" 
             android:theme="@style/Theme.GuessTheNumber.Popup" />
+        <activity android:name=".MarqueeActivity" />
+        <activity android:name=".WoodenFishActivity" />
+        <activity android:name=".RandomPickerActivity" />
+        <activity android:name=".PomodoroTimerActivity" />
+        <activity android:name=".QrGeneratorActivity" />
     </application>
 
 </manifest>
