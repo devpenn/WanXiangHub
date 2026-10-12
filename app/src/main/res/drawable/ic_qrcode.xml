@@ -1,0 +1,12 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp" android:height="24dp"
+    android:viewportWidth="24" android:viewportHeight="24">
+    <!-- 二维码生成：三个定位角 + 数据点阵 -->
+    <path
+        android:fillColor="#FF000000"
+        android:fillType="evenOdd"
+        android:pathData="M3.5,3.5 h6.6 v6.6 h-6.6 Z M5,5 v3.6 h3.6 v-3.6 Z M6.05,6.05 h1.5 v1.5 h-1.5 Z
+M14.9,3.5 h6.6 v6.6 h-6.6 Z M16.4,5 v3.6 h3.6 v-3.6 Z M17.45,6.05 h1.5 v1.5 h-1.5 Z
+M3.5,14.9 h6.6 v6.6 h-6.6 Z M5,16.4 v3.6 h3.6 v-3.6 Z M6.05,17.45 h1.5 v1.5 h-1.5 Z
+M14.9,14.9 h3 v3 h-3 Z M19.4,14.9 h1.6 v1.6 h-1.6 Z M14.9,19.4 h1.6 v1.6 h-1.6 Z M19.2,19.2 h1.8 v1.8 h-1.8 Z" />
+</vector>

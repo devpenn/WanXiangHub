@@ -1,0 +1,16 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp" android:height="24dp"
+    android:viewportWidth="24" android:viewportHeight="24">
+    <!-- 今日好运：四叶草 -->
+    <path
+        android:fillColor="#FF000000"
+        android:pathData="M8.6,5.2 a3.4,3.4 0 1,0 0,6.8 a3.4,3.4 0 0,0 0,-6.8 Z
+M15.4,5.2 a3.4,3.4 0 1,0 0,6.8 a3.4,3.4 0 0,0 0,-6.8 Z
+M8.6,12 a3.4,3.4 0 1,0 0,6.8 a3.4,3.4 0 0,0 0,-6.8 Z
+M15.4,12 a3.4,3.4 0 1,0 0,6.8 a3.4,3.4 0 0,0 0,-6.8 Z" />
+    <path
+        android:pathData="M13.4,14.6 C14.4,17.4 15.8,19.2 18,20.4"
+        android:strokeColor="#FF000000"
+        android:strokeWidth="1.8"
+        android:strokeLineCap="round" />
+</vector>

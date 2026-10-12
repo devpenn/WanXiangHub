@@ -2,6 +2,7 @@ package com.penn.myapplication
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
+import android.content.Context
 import android.graphics.Color
 import android.media.AudioAttributes
 import android.media.SoundPool
@@ -37,6 +38,11 @@ class WoodenFishActivity : AppCompatActivity() {
         tvMeritCount = findViewById(R.id.tv_merit_count)
         ivWoodenFish = findViewById(R.id.iv_wooden_fish)
         containerFloatingText = findViewById(R.id.container_floating_text)
+
+        // Load saved merit count
+        val sharedPref = getSharedPreferences("WoodenFishPrefs", Context.MODE_PRIVATE)
+        meritCount = sharedPref.getInt("merit_count", 0)
+        tvMeritCount.text = "功德: $meritCount"
 
         initSoundPool()
 
@@ -84,6 +90,10 @@ class WoodenFishActivity : AppCompatActivity() {
         // 3. 功德+1
         meritCount++
         tvMeritCount.text = "功德: $meritCount"
+
+        // Save merit count
+        val sharedPref = getSharedPreferences("WoodenFishPrefs", Context.MODE_PRIVATE)
+        sharedPref.edit().putInt("merit_count", meritCount).apply()
 
         // 4. 飘出“功德+1”文字
         showFloatingText()

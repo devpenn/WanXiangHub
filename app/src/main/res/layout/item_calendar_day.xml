@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout_day"
+    android:layout_width="52dp"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_calendar_day_unselected"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:paddingVertical="10dp"
+    android:layout_marginHorizontal="2dp">
+
+    <TextView
+        android:id="@+id/tv_week_day"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/text_tertiary"
+        android:textSize="11sp"
+        tools:text="周一" />
+
+    <TextView
+        android:id="@+id/tv_day"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="6dp"
+        android:gravity="center"
+        android:textColor="@color/text_primary"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        tools:text="25" />
+
+    <TextView
+        android:id="@+id/tv_lunar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:textColor="@color/text_secondary"
+        android:textSize="10sp"
+        tools:text="初一" />
+
+</LinearLayout>

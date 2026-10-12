@@ -1,0 +1,12 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp" android:height="24dp"
+    android:viewportWidth="24" android:viewportHeight="24">
+    <!-- 手持弹幕：手机屏幕上滚动的文字条带 -->
+    <path
+        android:fillColor="#FF000000"
+        android:fillType="evenOdd"
+        android:pathData="M7,2 h10 a2,2 0 0,1 2,2 v16 a2,2 0 0,1 -2,2 H7 a2,2 0 0,1 -2,-2 V4 a2,2 0 0,1 2,-2 Z M9.2,4.2 a1,1 0 0,0 -1,1 v13.6 a1,1 0 0,0 1,1 h5.6 a1,1 0 0,0 1,-1 V5.2 a1,1 0 0,0 -1,-1 Z" />
+    <path
+        android:fillColor="#FF000000"
+        android:pathData="M9.3,10.2 h5.4 a0.6,0.6 0 0,1 0.6,0.6 v2.4 a0.6,0.6 0 0,1 -0.6,0.6 h-5.4 a0.6,0.6 0 0,1 -0.6,-0.6 v-2.4 a0.6,0.6 0 0,1 0.6,-0.6 Z" />
+</vector>

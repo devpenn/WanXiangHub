@@ -20,7 +20,7 @@
     <fragment
         android:id="@+id/navigation_todo"
         android:name="com.penn.myapplication.ui.todo.TodoFragment"
-        android:label="TODO"
+        android:label="日历"
         tools:layout="@layout/fragment_todo" />
 
     <fragment

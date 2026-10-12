@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.penn.myapplication.ClassicGameActivity
+import com.penn.myapplication.LuckyActivity
 import com.penn.myapplication.MarqueeActivity
 import com.penn.myapplication.PomodoroTimerActivity
 import com.penn.myapplication.QrGeneratorActivity
@@ -40,15 +41,16 @@ class ToolsFragment : Fragment() {
         
         // 准备数据
         val toolsList = listOf(
-            ToolItem("经典猜数字", R.drawable.ic_dashboard, ClassicGameActivity::class.java),
-            ToolItem("温馨弹窗", R.drawable.ic_notifications, WarmPopupActivity::class.java),
-            ToolItem("手持弹幕", R.drawable.ic_marquee, MarqueeActivity::class.java),
-            ToolItem("电子木鱼", R.drawable.ic_wooden_fish, WoodenFishActivity::class.java),
-            ToolItem("随机决定", R.drawable.ic_casino, RandomPickerActivity::class.java),
-            ToolItem("专注番茄钟", R.drawable.ic_timer, PomodoroTimerActivity::class.java),
-            ToolItem("二维码生成", R.drawable.ic_qr_code, QrGeneratorActivity::class.java),
+            ToolItem("经典猜数字", R.drawable.ic_guess, ClassicGameActivity::class.java),
+            ToolItem("温馨弹窗", R.drawable.ic_popper, WarmPopupActivity::class.java),
+            ToolItem("手持弹幕", R.drawable.ic_marquee_banner, MarqueeActivity::class.java),
+            ToolItem("电子木鱼", R.drawable.ic_woodenfish, WoodenFishActivity::class.java),
+            ToolItem("随机决定", R.drawable.ic_wheel, RandomPickerActivity::class.java),
+            ToolItem("专注番茄钟", R.drawable.ic_pomodoro, PomodoroTimerActivity::class.java),
+            ToolItem("二维码生成", R.drawable.ic_qrcode, QrGeneratorActivity::class.java),
+            ToolItem("今日好运", R.drawable.ic_clover, LuckyActivity::class.java),
             // 未来可以在这里轻松添加更多工具
-            ToolItem("待开发功能", R.drawable.ic_home, null)
+            ToolItem("待开发功能", R.drawable.ic_dev_plus, null)
         )
 
         // 设置 RecyclerView

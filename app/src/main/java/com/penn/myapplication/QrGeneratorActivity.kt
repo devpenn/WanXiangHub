@@ -12,8 +12,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.google.zxing.BarcodeFormat
+import com.google.zxing.EncodeHintType
 import com.google.zxing.MultiFormatWriter
 import com.google.zxing.common.BitMatrix
+import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel
 
 class QrGeneratorActivity : AppCompatActivity() {
 
@@ -51,13 +53,21 @@ class QrGeneratorActivity : AppCompatActivity() {
     private fun generateQRCode(content: String): Bitmap {
         val width = 500
         val height = 500
+
+        // 设置编码参数
+        val hints = hashMapOf<EncodeHintType, Any>()
+        hints[EncodeHintType.CHARACTER_SET] = "UTF-8"
+        hints[EncodeHintType.ERROR_CORRECTION] = ErrorCorrectionLevel.H
+        hints[EncodeHintType.MARGIN] = 1
+
         val bitMatrix: BitMatrix = MultiFormatWriter().encode(
             content,
             BarcodeFormat.QR_CODE,
             width,
-            height
+            height,
+            hints
         )
-        
+
         val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565)
         for (x in 0 until width) {
             for (y in 0 until height) {
