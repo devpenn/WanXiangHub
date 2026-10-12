@@ -1,6 +1,6 @@
-# Modern Android Development Guidelines (MyApplication)
+# Modern Android Development Guidelines (WanXiangHub / 万象更新)
 
-本项目是一个基于 Kotlin 与 Material Design 3 的现代 Android 应用。为了保证代码库的工程质量、架构严谨性与长远可维护性，AI Agent 及所有开发者在参与本项目开发时，须严格遵守以下规范。
+本项目「万象更新」是一个基于 Kotlin 与 Material Design 3 的现代 Android 应用。为了保证代码库的工程质量、架构严谨性与长远可维护性，AI Agent 及所有开发者在参与本项目开发时，须严格遵守以下规范。
 
 ---
 
