@@ -6,7 +6,7 @@
         - 形状：Expressive 大圆角（卡片 24dp / 大面板 28dp / 对话框 32dp / 按钮全圆角）
         - 表面：去阴影化，用 surfaceContainer 层阶表达层次
     -->
-    <style name="Base.Theme.GuessTheNumber" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="Base.Theme.WanXiangHub" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- 主色 -->
         <item name="colorPrimary">@color/primary</item>
         <item name="colorOnPrimary">@color/on_primary</item>
@@ -63,7 +63,7 @@
         <item name="dialogCornerRadius">32dp</item>
     </style>
 
-    <style name="Theme.GuessTheNumber" parent="Base.Theme.GuessTheNumber" />
+    <style name="Theme.WanXiangHub" parent="Base.Theme.WanXiangHub" />
 
     <!-- 形状阶梯 -->
     <style name="Shape.App.Small" parent="ShapeAppearance.Material3.Corner.Small">
@@ -120,7 +120,7 @@
     </style>
 
     <!-- Popup Theme（温馨弹窗全屏半透明） -->
-    <style name="Theme.GuessTheNumber.Popup" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="Theme.WanXiangHub.Popup" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowContentOverlay">@null</item>

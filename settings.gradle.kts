@@ -20,5 +20,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "GuessTheNumber"
+rootProject.name = "WanXiangHub"
 include(":app")

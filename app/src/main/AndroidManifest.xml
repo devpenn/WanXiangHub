@@ -11,7 +11,7 @@
         android:maxSdkVersion="32" />
 
     <application
-        android:name=".GuessApp"
+        android:name=".WanXiangApp"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -20,7 +20,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:enableOnBackInvokedCallback="true"
         android:supportsRtl="true"
-        android:theme="@style/Theme.GuessTheNumber">
+        android:theme="@style/Theme.WanXiangHub">
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -33,7 +33,7 @@
         <activity android:name=".ClassicGameActivity" />
         <activity 
             android:name=".WarmPopupActivity" 
-            android:theme="@style/Theme.GuessTheNumber.Popup" />
+            android:theme="@style/Theme.WanXiangHub.Popup" />
         <activity android:name=".MarqueeActivity" />
         <activity android:name=".WoodenFishActivity" />
         <activity android:name=".RandomPickerActivity" />
