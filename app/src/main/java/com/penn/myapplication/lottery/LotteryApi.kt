@@ -21,9 +21,9 @@ object LotteryApi {
     private const val USER_AGENT =
         "Mozilla/5.0 (Linux; Android 14) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Mobile Safari/537.36"
 
-    // lottery-data 仓库（github.com/daipenn/lottery-data）
+    // lottery-data 仓库（github.com/devpenn/lottery-data）
     private const val DATA_REPO_RAW =
-        "https://raw.githubusercontent.com/daipenn/lottery-data/main/data"
+        "https://raw.githubusercontent.com/devpenn/lottery-data/main/data"
     // GitHub 加速代理，空串为 raw 直连兜底（海外网络）
     private val GH_PROXIES = listOf("https://gh-proxy.com", "https://gh.llkk.cc", "")
 
