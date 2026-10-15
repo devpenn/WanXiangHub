@@ -91,6 +91,8 @@ class WarmPopupActivity : AppCompatActivity() {
     }
 
     private fun setupListeners() {
+        findViewById<View>(R.id.btn_back_popup)?.setOnClickListener { finish() }
+
         btnToggle.setOnClickListener {
             togglePanel()
         }

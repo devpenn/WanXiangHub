@@ -2,31 +2,36 @@
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@style/Widget.App.CardView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="6dp"
-    app:contentPadding="6dp">
+    android:layout_margin="5dp"
+    android:clickable="true"
+    android:focusable="true"
+    app:cardCornerRadius="20dp"
+    app:cardElevation="0dp"
+    app:strokeWidth="0dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="vertical"
-        android:paddingTop="14dp"
-        android:paddingBottom="10dp"
+        android:paddingTop="18dp"
+        android:paddingBottom="16dp"
         android:paddingStart="6dp"
         android:paddingEnd="6dp">
 
-        <!-- 图标容器 -->
+        <!-- M3 渐变图标容器 -->
         <FrameLayout
-            android:layout_width="42dp"
-            android:layout_height="42dp"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:background="@drawable/tool_icon_background">
 
             <ImageView
                 android:id="@+id/iv_tool_icon"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
+                android:layout_width="26dp"
+                android:layout_height="26dp"
                 android:layout_gravity="center"
                 android:contentDescription="Tool Icon"
                 android:src="@drawable/ic_dashboard"
@@ -34,20 +39,19 @@
 
         </FrameLayout>
 
+        <!-- 标题: 全宽居中自适应，彻底消除截断 -->
         <TextView
             android:id="@+id/tv_tool_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
-            android:minHeight="32dp"
-            android:text="工具名称"
-            android:textColor="@color/text_primary"
-            android:textSize="11sp"
+            android:layout_marginTop="10dp"
             android:gravity="center"
             android:maxLines="2"
-            android:ellipsize="none"
-            android:lineSpacingMultiplier="1.0"
-            tools:text="工具名称" />
+            android:lineSpacingExtra="2dp"
+            android:textColor="?attr/colorOnSurface"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            tools:text="经典猜数字" />
 
     </LinearLayout>
 

@@ -36,9 +36,11 @@ class ToolsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val root = inflater.inflate(R.layout.fragment_tools, container, false)
-        
+
+        root.findViewById<TextView>(R.id.tv_page_header_title)?.text = "万象"
+
         val rvTools = root.findViewById<RecyclerView>(R.id.rv_tools)
-        
+
         // 准备数据
         val toolsList = listOf(
             ToolItem("经典猜数字", R.drawable.ic_guess, ClassicGameActivity::class.java),
@@ -49,14 +51,13 @@ class ToolsFragment : Fragment() {
             ToolItem("专注番茄钟", R.drawable.ic_pomodoro, PomodoroTimerActivity::class.java),
             ToolItem("二维码生成", R.drawable.ic_qrcode, QrGeneratorActivity::class.java),
             ToolItem("今日好运", R.drawable.ic_clover, LuckyActivity::class.java),
-            // 未来可以在这里轻松添加更多工具
             ToolItem("待开发功能", R.drawable.ic_dev_plus, null)
         )
 
-        // 设置 RecyclerView
-        rvTools.layoutManager = GridLayoutManager(context, 4) // 4列网格
+        // 设置 RecyclerView (手机端 3列网格，契合屏宽)
+        rvTools.layoutManager = GridLayoutManager(context, 3)
         rvTools.adapter = ToolsAdapter(requireContext(), toolsList)
-        
+
         return root
     }
 
@@ -80,7 +81,7 @@ class ToolsFragment : Fragment() {
             val item = items[position]
             holder.tvName.text = item.name
             holder.ivIcon.setImageResource(item.iconRes)
-            
+
             holder.itemView.setOnClickListener {
                 if (item.targetActivity != null) {
                     val intent = Intent(context, item.targetActivity)

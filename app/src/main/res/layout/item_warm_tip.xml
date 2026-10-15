@@ -1,61 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/card_tip"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    app:cardCornerRadius="6dp"
-    app:cardElevation="4dp"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="6dp"
     app:cardPreventCornerOverlap="false"
-    app:cardUseCompatPadding="true">
+    app:cardUseCompatPadding="true"
+    app:strokeWidth="0dp">
 
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingStart="12dp"
-        android:paddingTop="8dp"
-        android:paddingEnd="24dp"
-        android:paddingBottom="8dp">
+        android:paddingStart="16dp"
+        android:paddingTop="10dp"
+        android:paddingEnd="28dp"
+        android:paddingBottom="10dp">
 
         <TextView
             android:id="@+id/tv_tip_content"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="温馨提示"
-            android:textColor="#333333"
-            android:textSize="13sp"
+            android:textColor="#222222"
+            android:textSize="14sp"
             android:textStyle="bold" />
 
         <ImageView
             android:id="@+id/btn_close_tip"
             android:layout_width="16dp"
             android:layout_height="16dp"
-            android:layout_alignParentEnd="true"
             android:layout_alignParentTop="true"
-            android:layout_marginEnd="-20dp"
+            android:layout_alignParentEnd="true"
             android:layout_marginTop="-4dp"
+            android:layout_marginEnd="-20dp"
+            android:contentDescription="关闭"
             android:src="@drawable/close_icon"
-            app:tint="#666666" 
-            android:visibility="gone"/>
-            
+            android:visibility="gone"
+            app:tint="#666666" />
+
     </RelativeLayout>
 
     <!-- Close button overlay to make it easier to click -->
     <FrameLayout
         android:id="@+id/fl_close_area"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
         android:layout_gravity="top|end"
         android:visibility="invisible">
-        
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:text="×"
             android:textColor="#555"
-            android:textSize="14sp"
-            android:layout_gravity="center"
-            android:textStyle="bold"/>
+            android:textSize="15sp"
+            android:textStyle="bold" />
     </FrameLayout>
 
-</androidx.cardview.widget.CardView>
+</com.google.android.material.card.MaterialCardView>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="LiquidGlassView">
+        <attr name="lgCornerRadius" format="dimension" />
+        <attr name="lgIsPillMode" format="boolean" />
+        <attr name="lgShowShimmer" format="boolean" />
+        <attr name="lgEnableTouchFeedback" format="boolean" />
+    </declare-styleable>
+</resources>

@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -29,6 +30,8 @@ class QrGeneratorActivity : AppCompatActivity() {
             insets
         }
 
+        setupHeader()
+
         val etContent = findViewById<EditText>(R.id.et_content)
         val btnGenerate = findViewById<Button>(R.id.btn_generate)
         val ivQrCode = findViewById<ImageView>(R.id.iv_qr_code)
@@ -48,6 +51,11 @@ class QrGeneratorActivity : AppCompatActivity() {
                 Toast.makeText(this, "生成失败: ${e.message}", Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    private fun setupHeader() {
+        findViewById<TextView>(R.id.tv_header_title)?.text = "二维码生成"
+        findViewById<ImageView>(R.id.btn_back)?.setOnClickListener { finish() }
     }
 
     private fun generateQRCode(content: String): Bitmap {

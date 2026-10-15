@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_liquid_mesh">
 
     <!-- 背景图片 -->
     <ImageView
@@ -34,123 +35,160 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <!-- 信息容器 - 透明渐变背景 -->
-        <LinearLayout
+        <!-- 顶部: 可自定义与横向滑动的液态玻璃快捷气泡流 (Horizontal Quick Tools Flow) -->
+        <HorizontalScrollView
+            android:id="@+id/scroll_quick_tools"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="52dp"
+            android:clipToPadding="false"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:scrollbars="none"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:id="@+id/layout_quick_tools"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal" />
+
+        </HorizontalScrollView>
+
+        <!-- 底部: 苹果液态玻璃主信息大气泡 (Liquid Glass Primary Bubble Card) -->
+        <com.penn.myapplication.ui.home.LiquidGlassView
+            android:id="@+id/card_home_info"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginEnd="24dp"
-            android:layout_marginBottom="32dp"
-            android:orientation="vertical"
-            android:background="@drawable/home_info_background"
-            android:padding="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="36dp"
+            android:padding="22dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+            app:layout_constraintStart_toStartOf="parent"
+            app:lgCornerRadius="32dp"
+            app:lgIsPillMode="false"
+            app:lgShowShimmer="true">
 
-            <!-- 问候语 -->
-            <TextView
-                android:id="@+id/tv_greeting"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="#FFFFFF"
-                android:textSize="32sp"
-                android:textStyle="bold"
-                android:shadowColor="#80000000"
-                android:shadowDx="0"
-                android:shadowDy="2"
-                android:shadowRadius="8"
-                tools:text="早上好" />
-
-            <!-- 公历日期 -->
-            <TextView
-                android:id="@+id/tv_date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
-                android:textColor="#F0FFFFFF"
-                android:textSize="15sp"
-                android:shadowColor="#80000000"
-                android:shadowDx="0"
-                android:shadowDy="1"
-                android:shadowRadius="4"
-                tools:text="2024年12月21日 星期六" />
-
-            <!-- 农历信息 -->
-            <TextView
-                android:id="@+id/tv_lunar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:textColor="#E0FFFFFF"
-                android:textSize="14sp"
-                android:shadowColor="#80000000"
-                android:shadowDx="0"
-                android:shadowDy="1"
-                android:shadowRadius="4"
-                tools:text="甲辰龙年 十一月廿一" />
-
-            <!-- 分割线 -->
-            <View
-                android:id="@+id/divider"
-                android:layout_width="60dp"
-                android:layout_height="2dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="12dp"
-                android:background="#60FFFFFF"
-                android:visibility="gone" />
-
-            <!-- 自定义文字 -->
-            <TextView
-                android:id="@+id/tv_custom_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="#FFFFFF"
-                android:textSize="16sp"
-                android:textStyle="italic"
-                android:shadowColor="#80000000"
-                android:shadowDx="0"
-                android:shadowDy="2"
-                android:shadowRadius="6"
-                android:visibility="gone"
-                tools:text="今天也要加油哦！"
-                tools:visibility="visible" />
-
-            <!-- 节气/节日信息气泡 -->
             <LinearLayout
-                android:id="@+id/layout_festival"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:background="#40FFFFFF"
-                android:paddingStart="12dp"
-                android:paddingEnd="12dp"
-                android:paddingTop="6dp"
-                android:paddingBottom="6dp"
-                android:layout_marginTop="4dp"
-                android:visibility="gone"
-                tools:visibility="visible">
+                android:orientation="vertical">
 
-                <ImageView
-                    android:layout_width="18dp"
-                    android:layout_height="18dp"
-                    android:src="@drawable/ic_notifications"
-                    app:tint="#FFFFFF" />
-
+                <!-- 问候语 -->
                 <TextView
-                    android:id="@+id/tv_festival"
+                    android:id="@+id/tv_greeting"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="6dp"
+                    android:shadowColor="#B0000000"
+                    android:shadowDx="0"
+                    android:shadowDy="2"
+                    android:shadowRadius="10"
                     android:textColor="#FFFFFF"
-                    android:textSize="14sp"
+                    android:textSize="34sp"
                     android:textStyle="bold"
-                    tools:text="冬至" />
+                    tools:text="早上好" />
+
+                <!-- 公历日期 -->
+                <TextView
+                    android:id="@+id/tv_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:shadowColor="#A0000000"
+                    android:shadowDx="0"
+                    android:shadowDy="1"
+                    android:shadowRadius="8"
+                    android:textColor="#FFFFFF"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    tools:text="2026年10月12日 星期一" />
+
+                <!-- 农历信息 -->
+                <TextView
+                    android:id="@+id/tv_lunar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:shadowColor="#A0000000"
+                    android:shadowDx="0"
+                    android:shadowDy="1"
+                    android:shadowRadius="8"
+                    android:textColor="#F0FFFFFF"
+                    android:textSize="14sp"
+                    tools:text="丙午马年 九月初三" />
+
+                <!-- 节气/节日信息液态玻璃小胶囊 (Liquid Glass Pill) -->
+                <com.penn.myapplication.ui.home.LiquidGlassView
+                    android:id="@+id/layout_festival"
+                    android:layout_width="wrap_content"
+                    android:layout_height="36dp"
+                    android:layout_marginTop="12dp"
+                    android:visibility="gone"
+                    app:lgIsPillMode="true"
+                    app:lgShowShimmer="true"
+                    tools:visibility="visible">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingStart="14dp"
+                        android:paddingEnd="14dp">
+
+                        <ImageView
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:src="@drawable/ic_notifications"
+                            app:tint="#FFFFFF" />
+
+                        <TextView
+                            android:id="@+id/tv_festival"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="6dp"
+                            android:textColor="#FFFFFF"
+                            android:textSize="13sp"
+                            android:textStyle="bold"
+                            tools:text="今日节气：霜降" />
+
+                    </LinearLayout>
+                </com.penn.myapplication.ui.home.LiquidGlassView>
+
+                <!-- 分割线 -->
+                <View
+                    android:id="@+id/divider"
+                    android:layout_width="54dp"
+                    android:layout_height="2.5dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="12dp"
+                    android:background="#50FFFFFF"
+                    android:visibility="gone" />
+
+                <!-- 自定义文字 -->
+                <TextView
+                    android:id="@+id/tv_custom_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:shadowColor="#A0000000"
+                    android:shadowDx="0"
+                    android:shadowDy="2"
+                    android:shadowRadius="8"
+                    android:textColor="#FFFFFF"
+                    android:textSize="15sp"
+                    android:textStyle="italic"
+                    android:visibility="gone"
+                    tools:text="今天也要加油哦！"
+                    tools:visibility="visible" />
 
             </LinearLayout>
 
-        </LinearLayout>
+        </com.penn.myapplication.ui.home.LiquidGlassView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

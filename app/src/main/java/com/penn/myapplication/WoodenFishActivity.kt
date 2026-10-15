@@ -7,7 +7,6 @@ import android.graphics.Color
 import android.media.AudioAttributes
 import android.media.SoundPool
 import android.os.Bundle
-import android.view.MotionEvent
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
@@ -35,6 +34,8 @@ class WoodenFishActivity : AppCompatActivity() {
             insets
         }
 
+        setupHeader()
+
         tvMeritCount = findViewById(R.id.tv_merit_count)
         ivWoodenFish = findViewById(R.id.iv_wooden_fish)
         containerFloatingText = findViewById(R.id.container_floating_text)
@@ -51,6 +52,17 @@ class WoodenFishActivity : AppCompatActivity() {
         }
     }
 
+    private fun setupHeader() {
+        findViewById<TextView>(R.id.tv_header_title)?.apply {
+            text = "电子木鱼"
+            setTextColor(Color.WHITE)
+        }
+        findViewById<ImageView>(R.id.btn_back)?.apply {
+            setColorFilter(Color.WHITE)
+            setOnClickListener { finish() }
+        }
+    }
+
     private fun initSoundPool() {
         val audioAttributes = AudioAttributes.Builder()
             .setUsage(AudioAttributes.USAGE_GAME)
@@ -61,10 +73,6 @@ class WoodenFishActivity : AppCompatActivity() {
             .setMaxStreams(5)
             .setAudioAttributes(audioAttributes)
             .build()
-            
-        // 这里需要一个木鱼的声音文件，假设放在 res/raw/wooden_fish.mp3
-        // 由于还没有音频文件，先用系统提示音代替或者暂不播放
-        // soundId = soundPool.load(this, R.raw.wooden_fish, 1)
     }
 
     private fun knockWoodenFish() {
@@ -105,21 +113,19 @@ class WoodenFishActivity : AppCompatActivity() {
         textView.setTextColor(Color.WHITE)
         textView.textSize = 24f
         textView.alpha = 0f
-        
+
         // 初始位置在木鱼上方
         val params = FrameLayout.LayoutParams(
             FrameLayout.LayoutParams.WRAP_CONTENT,
             FrameLayout.LayoutParams.WRAP_CONTENT
         )
-        // 稍微随机一点的水平位置
         val randomX = (Math.random() * 100 - 50).toInt()
-        
-        // 计算木鱼中心位置
+
         val location = IntArray(2)
         ivWoodenFish.getLocationOnScreen(location)
         val fishCenterX = location[0] + ivWoodenFish.width / 2
         val fishCenterY = location[1] + ivWoodenFish.height / 2
-        
+
         textView.x = (fishCenterX + randomX).toFloat()
         textView.y = (fishCenterY - 200).toFloat()
 

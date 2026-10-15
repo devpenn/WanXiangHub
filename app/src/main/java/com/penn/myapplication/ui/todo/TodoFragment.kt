@@ -1,7 +1,10 @@
 package com.penn.myapplication.ui.todo
 
 import android.content.Context
+import android.content.Intent
+import android.content.res.ColorStateList
 import android.graphics.Color
+import com.penn.myapplication.db.WanXiangDatabaseHelper
 import android.graphics.Paint
 import android.os.Bundle
 import android.util.TypedValue
@@ -207,6 +210,8 @@ class TodoFragment : Fragment() {
     ): View {
         val root = inflater.inflate(R.layout.fragment_todo, container, false)
 
+        root.findViewById<TextView>(R.id.tv_page_header_title)?.text = "日历"
+
         rvTodos = root.findViewById(R.id.rv_todos)
         llEmptyTodo = root.findViewById(R.id.ll_empty_todo)
         tvScheduleDateTitle = root.findViewById(R.id.tv_schedule_date_title)
@@ -226,12 +231,12 @@ class TodoFragment : Fragment() {
         todoAdapter = TodoAdapter().apply {
             onDoneChanged = { todo, isChecked ->
                 todo.isDone = isChecked
-                saveTodos()
+                TodoRepository.saveTodo(requireContext(), todo)
                 updateTodoList()
             }
             onDelete = { todo ->
                 allTodos.remove(todo)
-                saveTodos()
+                TodoRepository.deleteTodo(requireContext(), todo.id)
                 buildCalendar()
                 updateTodoList()
             }
@@ -307,13 +312,39 @@ class TodoFragment : Fragment() {
         }
     }
 
+    private val ticketCountMap = mutableMapOf<String, Int>()
+
     private fun buildCalendar() {
         if (!isAdded) return
+        loadTicketCountsFromDb()
         when (viewMode) {
             ViewMode.MONTH -> buildMonthGrid()
             ViewMode.WEEK -> buildWeekStrip()
         }
         tvCurrentMonth.text = monthTitleText()
+    }
+
+    private fun loadTicketCountsFromDb() {
+        ticketCountMap.clear()
+        try {
+            val dbHelper = WanXiangDatabaseHelper(requireContext())
+            val db = dbHelper.readableDatabase
+            val cursor = db.rawQuery(
+                "SELECT ${WanXiangDatabaseHelper.COLUMN_TICKET_PURCHASE_DATE}, COUNT(*) FROM ${WanXiangDatabaseHelper.TABLE_LUCKY_TICKETS} WHERE ${WanXiangDatabaseHelper.COLUMN_TICKET_IS_BOUGHT} = 1 AND ${WanXiangDatabaseHelper.COLUMN_TICKET_PURCHASE_DATE} != '' GROUP BY ${WanXiangDatabaseHelper.COLUMN_TICKET_PURCHASE_DATE}",
+                null
+            )
+            cursor.use { c ->
+                while (c.moveToNext()) {
+                    val d = c.getString(0)
+                    val cnt = c.getInt(1)
+                    if (!d.isNullOrEmpty()) {
+                        ticketCountMap[d] = cnt
+                    }
+                }
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 
     private fun monthTitleText(): String = when (viewMode) {
@@ -496,22 +527,54 @@ class TodoFragment : Fragment() {
         }
         cell.addView(lunarRow)
 
-        // 待办数角标
-        if (count > 0) {
-            val badge = TextView(requireContext()).apply {
-                text = count.toString()
-                gravity = Gravity.CENTER
-                setTextSize(TypedValue.COMPLEX_UNIT_SP, 8f)
-                typeface = android.graphics.Typeface.DEFAULT_BOLD
-                includeFontPadding = false
-                setTextColor(ContextCompat.getColor(context, R.color.on_secondary_container))
-                background = ContextCompat.getDrawable(context, R.drawable.bg_badge_pill)
-                backgroundTintList = android.content.res.ColorStateList.valueOf(
-                    ContextCompat.getColor(context, R.color.secondary_container)
-                )
-                layoutParams = LinearLayout.LayoutParams(dp(14), dp(11)).apply { topMargin = dp(1) }
+        // 待办数角标 + 彩票已购注数角标 (如 🎯 2)
+        val ticketCount = ticketCountMap[dateKey] ?: 0
+        if (count > 0 || ticketCount > 0) {
+            val badgeRow = LinearLayout(requireContext()).apply {
+                orientation = LinearLayout.HORIZONTAL
+                gravity = Gravity.CENTER_VERTICAL
             }
-            cell.addView(badge)
+
+            if (count > 0) {
+                val badge = TextView(requireContext()).apply {
+                    text = count.toString()
+                    gravity = Gravity.CENTER
+                    setTextSize(TypedValue.COMPLEX_UNIT_SP, 8f)
+                    typeface = android.graphics.Typeface.DEFAULT_BOLD
+                    includeFontPadding = false
+                    setTextColor(ContextCompat.getColor(context, R.color.on_secondary_container))
+                    background = ContextCompat.getDrawable(context, R.drawable.bg_badge_pill)
+                    backgroundTintList = ColorStateList.valueOf(
+                        ContextCompat.getColor(context, R.color.secondary_container)
+                    )
+                    layoutParams = LinearLayout.LayoutParams(dp(14), dp(11)).apply { topMargin = dp(1) }
+                }
+                badgeRow.addView(badge)
+            }
+
+            if (ticketCount > 0) {
+                val lotteryBadge = TextView(requireContext()).apply {
+                    text = "🎯 $ticketCount"
+                    gravity = Gravity.CENTER
+                    setTextSize(TypedValue.COMPLEX_UNIT_SP, 7f)
+                    typeface = android.graphics.Typeface.DEFAULT_BOLD
+                    includeFontPadding = false
+                    setTextColor(Color.WHITE)
+                    background = ContextCompat.getDrawable(context, R.drawable.bg_hint_pill)
+                    backgroundTintList = ColorStateList.valueOf(Color.parseColor("#EF4444"))
+                    layoutParams = LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.WRAP_CONTENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT
+                    ).apply {
+                        setPadding(dp(3), dp(1), dp(3), dp(1))
+                        topMargin = dp(1)
+                        if (count > 0) marginStart = dp(2)
+                    }
+                }
+                badgeRow.addView(lotteryBadge)
+            }
+
+            cell.addView(badgeRow)
         }
 
         // 传递手势给 GestureDetector，拖动时触发翻周/翻月，点击时选择日期
@@ -615,8 +678,10 @@ class TodoFragment : Fragment() {
         tvScheduleDateTitle.text = fmtDateTitle
 
         val selectedDateStr = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(selectedDate)
+
+        // 1. 日程列表仅包含普通个人待办，排除彩票系统自动插入项，保持待办清单绝对简洁清爽
         val sortedTodos = allTodos
-            .filter { it.date == selectedDateStr }
+            .filter { it.date == selectedDateStr && it.category != "彩票" }
             .sortedBy { it.createdAt }
             .map { it.copy() }
 
@@ -626,29 +691,62 @@ class TodoFragment : Fragment() {
 
         todoAdapter.submitList(sortedTodos)
         llEmptyTodo.visibility = if (sortedTodos.isEmpty()) View.VISIBLE else View.GONE
+
+        // 2. 更新独立专属彩票开奖日横幅 (card_lottery_banner)
+        updateLotteryBanner(selectedDateStr)
+    }
+
+    private fun updateLotteryBanner(dateStr: String) {
+        val context = requireContext()
+        val calendar = Calendar.getInstance().apply {
+            time = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).parse(dateStr) ?: Date()
+        }
+        val dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK)
+
+        val isSsqDrawDay = dayOfWeek in listOf(Calendar.TUESDAY, Calendar.THURSDAY, Calendar.SUNDAY)
+        val isDltDrawDay = dayOfWeek in listOf(Calendar.MONDAY, Calendar.WEDNESDAY, Calendar.SATURDAY)
+
+        val ssqTickets = com.penn.myapplication.lottery.LuckyStore.load(context, com.penn.myapplication.lottery.LotteryGame.SSQ).filter { it.purchaseDate == dateStr }
+        val dltTickets = com.penn.myapplication.lottery.LuckyStore.load(context, com.penn.myapplication.lottery.LotteryGame.DLT).filter { it.purchaseDate == dateStr }
+        val totalBought = ssqTickets.count { it.bought } + dltTickets.count { it.bought }
+
+        val bannerCard = view?.findViewById<View>(R.id.card_lottery_banner) ?: return
+        val bannerText = view?.findViewById<TextView>(R.id.tv_lottery_banner_text) ?: return
+
+        when {
+            totalBought > 0 -> {
+                val wonTickets = (ssqTickets + dltTickets).filter { it.bought && it.prizeAmount > 0 }
+                val statusText = if (wonTickets.isNotEmpty()) {
+                    "🎉 喜中奖金 ${wonTickets.sumOf { it.prizeAmount }.toInt()} 元！点击核对"
+                } else {
+                    "🎯 该日已购 ${totalBought} 注彩票 (点击查看)"
+                }
+                bannerText.text = statusText
+                bannerCard.visibility = View.VISIBLE
+                bannerCard.setOnClickListener {
+                    val intent = Intent(context, com.penn.myapplication.LuckyActivity::class.java).apply {
+                        putExtra("target_date", dateStr)
+                        putExtra("target_game", if (dltTickets.isNotEmpty()) "DLT" else "SSQ")
+                    }
+                    startActivity(intent)
+                }
+            }
+            else -> {
+                bannerCard.visibility = View.GONE
+            }
+        }
     }
 
     // region Data Persistence
 
     private fun loadTodos() {
-        val prefs = requireContext().getSharedPreferences("TodoPrefs", Context.MODE_PRIVATE)
-        val json = prefs.getString("todos", null)
-        if (json != null) {
-            val type = object : TypeToken<MutableList<TodoItem>>() {}.type
-            val loaded: MutableList<TodoItem>? = gson.fromJson(json, type)
-            if (loaded != null) {
-                allTodos = loaded.map {
-                    val cat = if (it.category.isNullOrBlank()) "工作" else it.category!!
-                    it.copy(category = cat)
-                }.toMutableList()
-            }
-        }
+        allTodos = TodoRepository.getAllTodos(requireContext())
     }
 
     private fun saveTodos() {
-        val prefs = requireContext().getSharedPreferences("TodoPrefs", Context.MODE_PRIVATE)
-        val json = gson.toJson(allTodos)
-        prefs.edit().putString("todos", json).apply()
+        allTodos.forEach { todo ->
+            TodoRepository.saveTodo(requireContext(), todo)
+        }
     }
 
     // endregion

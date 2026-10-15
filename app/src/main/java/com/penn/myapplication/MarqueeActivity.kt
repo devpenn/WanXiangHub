@@ -18,9 +18,9 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
-import androidx.core.view.isVisible
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
+import androidx.core.view.isVisible
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.textfield.TextInputEditText
@@ -33,6 +33,7 @@ class MarqueeActivity : AppCompatActivity() {
     private lateinit var sbSpeed: SeekBar
     private lateinit var btnToggleScroll: MaterialButton
     private lateinit var tvHint: TextView
+    private lateinit var btnBackMarquee: View
     private var animator: ObjectAnimator? = null
     private var isScrolling = false
     private var scrollSpeed = 50 // 默认速度
@@ -57,6 +58,9 @@ class MarqueeActivity : AppCompatActivity() {
         sbSpeed = findViewById(R.id.sb_speed)
         btnToggleScroll = findViewById(R.id.btn_toggle_scroll)
         tvHint = findViewById(R.id.tv_hint)
+        btnBackMarquee = findViewById(R.id.btn_back_marquee)
+
+        btnBackMarquee.setOnClickListener { finish() }
 
         // 加载保存的文字和速度
         val sharedPref = getSharedPreferences("MarqueePrefs", Context.MODE_PRIVATE)
@@ -68,7 +72,6 @@ class MarqueeActivity : AppCompatActivity() {
         sbSpeed.progress = scrollSpeed
 
         // 弹幕滚动区：轻点（UP 且未滚动）切换面板；拖动翻看弹幕不触发。
-        // 不用 root 的 click 监听：DOWN 会被滚动区吞掉，root 的 click 永远不触发。
         val hsv = findViewById<View>(R.id.hsv_marquee)
         var downX = 0f
         var downY = 0f
@@ -85,7 +88,7 @@ class MarqueeActivity : AppCompatActivity() {
                     }
                 }
             }
-            false // 不消费事件，HorizontalScrollView 的滚动照常工作
+            false
         }
         layoutSettings.setOnClickListener { resetAutoHide() }
 
@@ -159,6 +162,7 @@ class MarqueeActivity : AppCompatActivity() {
     private fun showPanel() {
         mainHandler.removeCallbacks(autoHidePanel)
         layoutSettings.isVisible = true
+        btnBackMarquee.isVisible = true
         layoutSettings.alpha = 0f
         layoutSettings.translationY = layoutSettings.height.coerceAtLeast(1).toFloat()
         layoutSettings.animate()
@@ -176,6 +180,7 @@ class MarqueeActivity : AppCompatActivity() {
         hideKeyboard()
         val end = {
             layoutSettings.isVisible = false
+            btnBackMarquee.isVisible = false
             layoutSettings.alpha = 1f
             layoutSettings.translationY = 0f
         }
@@ -239,12 +244,10 @@ class MarqueeActivity : AppCompatActivity() {
         animator?.let {
             val currentX = tvMarquee.translationX
             val textWidth = tvMarquee.width.toFloat()
-            // 终点是文字完全移出屏幕左侧
             val endX = -textWidth
 
             it.cancel()
 
-            // 计算剩余距离
             val distanceLeft = currentX - endX
             val factor = calculateSpeedFactor(scrollSpeed)
             val duration = (distanceLeft * factor).toLong()

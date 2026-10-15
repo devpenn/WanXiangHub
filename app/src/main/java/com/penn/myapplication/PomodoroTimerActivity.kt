@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.Vibrator
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
@@ -20,12 +21,12 @@ class PomodoroTimerActivity : AppCompatActivity() {
     private lateinit var progressBar: ProgressBar
     private lateinit var btnStartPause: Button
     private lateinit var btnReset: Button
-    
+
     private var timer: CountDownTimer? = null
     private var isRunning = false
     private val startTimeInMillis: Long = 25 * 60 * 1000 // 25 minutes
     private var timeLeftInMillis: Long = startTimeInMillis
-    
+
     // 用于记录退出时的时间戳
     private var endTime: Long = 0
 
@@ -38,6 +39,8 @@ class PomodoroTimerActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
+        setupHeader()
 
         tvTimer = findViewById(R.id.tv_timer)
         progressBar = findViewById(R.id.progress_bar)
@@ -57,6 +60,11 @@ class PomodoroTimerActivity : AppCompatActivity() {
         }
     }
 
+    private fun setupHeader() {
+        findViewById<TextView>(R.id.tv_header_title)?.text = "专注番茄钟"
+        findViewById<ImageView>(R.id.btn_back)?.setOnClickListener { finish() }
+    }
+
     override fun onStop() {
         super.onStop()
         // 保存当前状态
@@ -65,14 +73,14 @@ class PomodoroTimerActivity : AppCompatActivity() {
 
         editor.putLong("timeLeftInMillis", timeLeftInMillis)
         editor.putBoolean("isRunning", isRunning)
-        
+
         // 如果正在运行，保存预计结束时间点
         if (isRunning) {
             editor.putLong("endTime", System.currentTimeMillis() + timeLeftInMillis)
         } else {
             editor.putLong("endTime", 0)
         }
-        
+
         editor.apply()
 
         // 停止 Timer，避免后台内存泄漏，我们回来时重新计算
@@ -86,14 +94,14 @@ class PomodoroTimerActivity : AppCompatActivity() {
 
         timeLeftInMillis = prefs.getLong("timeLeftInMillis", startTimeInMillis)
         isRunning = prefs.getBoolean("isRunning", false)
-        
+
         updateCountDownText()
         updateProgressBar()
 
         if (isRunning) {
             endTime = prefs.getLong("endTime", 0)
             val currentTime = System.currentTimeMillis()
-            
+
             // 计算过去的时间
             timeLeftInMillis = endTime - currentTime
 
@@ -126,7 +134,7 @@ class PomodoroTimerActivity : AppCompatActivity() {
     private fun startTimer() {
         // 先取消之前的避免重复
         timer?.cancel()
-        
+
         timer = object : CountDownTimer(timeLeftInMillis, 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 timeLeftInMillis = millisUntilFinished
@@ -139,11 +147,11 @@ class PomodoroTimerActivity : AppCompatActivity() {
                 btnStartPause.text = "开始专注"
                 btnStartPause.visibility = android.view.View.INVISIBLE
                 btnReset.visibility = android.view.View.VISIBLE
-                
+
                 timeLeftInMillis = 0
                 updateCountDownText()
                 updateProgressBar()
-                
+
                 val vibrator = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
                 if (vibrator.hasVibrator()) {
                     vibrator.vibrate(1000)
@@ -177,13 +185,13 @@ class PomodoroTimerActivity : AppCompatActivity() {
     private fun updateCountDownText() {
         // 防止负数
         if (timeLeftInMillis < 0) timeLeftInMillis = 0
-        
+
         val minutes = (timeLeftInMillis / 1000) / 60
         val seconds = (timeLeftInMillis / 1000) % 60
         val timeFormatted = String.format(Locale.getDefault(), "%02d:%02d", minutes, seconds)
         tvTimer.text = timeFormatted
     }
-    
+
     private fun updateProgressBar() {
         if (timeLeftInMillis < 0) timeLeftInMillis = 0
         val secondsLeft = (timeLeftInMillis / 1000).toInt()

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.penn.myapplication.ui.home.LiquidGlassView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="76dp"
+    android:layout_height="68dp"
+    android:layout_marginEnd="10dp"
+    app:lgCornerRadius="20dp"
+    app:lgIsPillMode="false"
+    app:lgShowShimmer="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="4dp">
+
+        <ImageView
+            android:id="@+id/iv_quick_icon"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:src="@drawable/ic_woodenfish"
+            app:tint="#FFFFFF" />
+
+        <TextView
+            android:id="@+id/tv_quick_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:shadowColor="#A0000000"
+            android:shadowDx="0"
+            android:shadowDy="1"
+            android:shadowRadius="4"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:text="电子木鱼"
+            android:textColor="#FFFFFF"
+            android:textSize="11sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+</com.penn.myapplication.ui.home.LiquidGlassView>

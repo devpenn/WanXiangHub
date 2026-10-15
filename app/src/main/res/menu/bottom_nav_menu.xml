@@ -7,7 +7,7 @@
     <item
         android:id="@+id/navigation_tools"
         android:icon="@drawable/ic_dashboard"
-        android:title="工具" />
+        android:title="万象" />
     <item
         android:id="@+id/navigation_todo"
         android:icon="@drawable/ic_calendar"

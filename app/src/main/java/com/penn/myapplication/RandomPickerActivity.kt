@@ -59,6 +59,8 @@ class RandomPickerActivity : AppCompatActivity() {
             insets
         }
 
+        setupHeader()
+
         wheelView = findViewById(R.id.wheel_view)
         etOptions = findViewById(R.id.et_options)
         val btnPick = findViewById<MaterialButton>(R.id.btn_pick)
@@ -122,6 +124,11 @@ class RandomPickerActivity : AppCompatActivity() {
                 updateWheel(wheelView, etOptions.text.toString())
             }
         }
+    }
+
+    private fun setupHeader() {
+        findViewById<TextView>(R.id.tv_header_title)?.text = "随机决定"
+        findViewById<ImageView>(R.id.btn_back)?.setOnClickListener { finish() }
     }
 
     override fun onDestroy() {

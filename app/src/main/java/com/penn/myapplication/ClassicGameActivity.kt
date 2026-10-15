@@ -3,6 +3,7 @@ package com.penn.myapplication
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -24,7 +25,7 @@ class ClassicGameActivity : AppCompatActivity() {
             insets
         }
 
-        // Initialize game
+        setupHeader()
         resetGame()
 
         val etGuess = findViewById<EditText>(R.id.et_guess)
@@ -54,6 +55,11 @@ class ClassicGameActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    private fun setupHeader() {
+        findViewById<TextView>(R.id.tv_header_title)?.text = "经典猜数字"
+        findViewById<ImageView>(R.id.btn_back)?.setOnClickListener { finish() }
     }
 
     private fun resetGame() {
